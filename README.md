@@ -29,6 +29,6 @@ Tool scanning vulnerability sederhana berbasis Python yang terinspirasi dari Nma
 ### Persiapan
 ```bash
 # Beri izin eksekusi
-chmod +x vuln_scanner.py
-python vuln_scanner.py
-python3 vuln.scanner.py
+chmod +x vuln_me.py
+python vuln_me.py
+python3 vuln_me.py
