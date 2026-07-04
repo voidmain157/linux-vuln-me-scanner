@@ -216,3 +216,33 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+cat > .gitignore << 'EOF'
+# Byte-compiled / optimized / DLL files
+_pycache_/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv/
+
+# Distribution / packaging
+.Python
+build/
+dist/
+*.egg-info/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+.DS_Store
+
+# Project specific
+scan_report.html
+vuln_db.txt
+*.log
+EOF
