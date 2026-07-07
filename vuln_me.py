@@ -31,13 +31,13 @@ def get_address_family(target):
         # Coba IPv4
         socket.inet_pton(socket.AF_INET, target)
         return socket.AF_INET
-    except:
+    except OSError:
         try:
             # Resolve hostname
             info = socket.getaddrinfo(target, None)
             return info[0][0]  # AF_INET atau AF_INET6
-        except:
-            return socket.AF_INET  # default
+        except OSError:
+        return socket.AF_INET  # default
 
 def validate_target(target):
     """Validasi IPv4, IPv6, atau hostname"""
@@ -49,24 +49,24 @@ def validate_target(target):
         try:
             socket.inet_pton(socket.AF_INET, target)
             return True
-        except:
-            pass
+        except OSError:
+        pass
     
     # IPv6
     if re.match(r'^[0-9a-fA-F:]+$', target.replace('[', '').replace(']', '')):
         try:
             socket.inet_pton(socket.AF_INET6, target.replace('[', '').replace(']', ''))
             return True
-        except:
-            pass
+        except OSError:
+        pass
     
     # Hostname
     if re.match(r'^[a-zA-Z0-9.-]+$', target):
         try:
             socket.gethostbyname(target)
             return True
-        except:
-            pass
+        except OSError:
+        pass
     return False
 
 def port_scan(target, start_port=1, end_port=1024):
@@ -83,8 +83,8 @@ def port_scan(target, start_port=1, end_port=1024):
                 if result == 0:
                     open_ports.append(port)
                     print(f"[+] Port {port} OPEN")
-        except:
-            pass
+        except OSError:
+        pass
     
     threads = []
     for port in range(start_port, end_port + 1):
@@ -111,7 +111,7 @@ def grab_banner(target, port):
             s.connect((target, port))
             banner = s.recv(1024).decode('utf-8', errors='ignore').strip()
             return banner if banner else "No banner"
-    except:
+    except OSError:
         return None
 
 # Fungsi check_vulnerabilities, linux_system_checks, export_to_html tetap sama seperti sebelumnya
@@ -145,8 +145,8 @@ def linux_system_checks():
         try:
             result = subprocess.getoutput(cmd)
             results[desc] = result if result.strip() else "No output"
-        except:
-            results[desc] = "Command failed"
+        except OSError:
+        results[desc] = "Command failed"
     return results
 
 def export_to_html(target, open_ports, banners, vulns, system_checks=None, filename="scan_report.html"):

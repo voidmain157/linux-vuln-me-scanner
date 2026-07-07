@@ -33,3 +33,9 @@ Tool scanning vulnerability sederhana berbasis Python yang terinspirasi dari Nma
 chmod +x vuln_me.py
 python vuln_me.py
 python3 vuln_me.py
+
+## Usage
+
+```bash
+python3 main.py
+```
